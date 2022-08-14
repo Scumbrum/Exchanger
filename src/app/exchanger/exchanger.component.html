@@ -1,0 +1,34 @@
+<section class="exchange">
+    <div class="exhange__inner">
+        <div class="exchange__box">
+            <div class="exchange__choser">
+                <select
+                    name="first"
+                    [(ngModel)]="firstCurrency"
+                    [disabled] = "loading"
+                    class="exchange__select">
+                    <option *ngFor="let curr of currencies; let i = index" [value]="curr">{{curr}}</option>
+                </select>
+                <input type="number" [disabled] = "loading" [(ngModel)]="firstAmount" class="exchange__input">
+            </div>
+            <div class="exchange__choser">
+                <input 
+                    type="number"
+                    [disabled] = "loading"
+                    [(ngModel)]="secondAmount"
+                    class="exchange__input">
+                <select
+                    name="second"
+                    [disabled] = "loading"
+                    [(ngModel)]="secondCurrency"
+                    class="exchange__select">
+                    <option *ngFor="let curr of currencies; let i = index" [value]="curr">{{curr}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="loader" *ngIf="loading"></div>
+        <p class="exchange__error" *ngIf="!!error">
+            {{error}}
+        </p>
+    </div>
+</section>
