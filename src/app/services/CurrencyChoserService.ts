@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, debounceTime, filter,  merge, switchMap } from "rxjs";
-import { IExchangeState, InputUsedType } from "../models";
+import { IExchangeState, InputUsedType, IRates } from "../models";
 import CurrencyAPIService from "./CurrencyService";
 
 @Injectable()
@@ -30,13 +30,7 @@ export default class CurrencyChoserServices {
             })
         )
         .subscribe((response) => {
-            if(this.typedIN === InputUsedType.FIRST) {
-                const secondAmount = response.rates[this.secondSymbol] * this.firstAmount
-                this.state.secondAmount$.next(secondAmount)
-            } else {
-                const firstAmount = (1 / response.rates[this.secondSymbol]) * this.secondAmount
-                this.state.firstAmount$.next(firstAmount)
-            }
+            this.executeExchange(response.rates)
             this.typedIN = InputUsedType.NONE
         })
     }
@@ -90,4 +84,13 @@ export default class CurrencyChoserServices {
         return +this.state.firstAmount$.getValue().toFixed(2)
     }
 
+    private executeExchange(rates:IRates) {
+        if(this.typedIN === InputUsedType.FIRST) {
+            const secondAmount = rates[this.secondSymbol] * this.firstAmount
+            this.state.secondAmount$.next(secondAmount)
+        } else {
+            const firstAmount = (1 / rates[this.secondSymbol]) * this.secondAmount
+            this.state.firstAmount$.next(firstAmount)
+        }
+    }
 }

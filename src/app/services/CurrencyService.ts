@@ -7,14 +7,7 @@ import { ICourseResponse, ISymbolsResponse} from "../models/index";
     providedIn: "root"
 })
 export default class CurrencyAPIService {
-    private displayCurrency: string[] = [
-        'USD',
-        'EUR'
-    ]
-
-    private base ='UAH'
     private URL = 'https://fixer-fixer-currency-v1.p.rapidapi.com'
-
     private headers = {
         'X-RapidAPI-Key': '2f1e914af6msh75c8e00d67f3d4fp1a9e12jsn48266fbb62cb',
         'X-RapidAPI-Host': 'fixer-fixer-currency-v1.p.rapidapi.com'
