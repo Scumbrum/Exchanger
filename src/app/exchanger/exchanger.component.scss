@@ -9,9 +9,15 @@
         margin: 50px 15px;
         display: flex;
         justify-content: space-between;
+        @media (max-width: 500px) {
+          flex-direction: column;
+      }
     }
     &__choser {
-        width: 40%;
+      width: 40%;
+      @media (max-width: 500px) {
+        margin-bottom: 15px;
+      }
     }
     &__input {
         background-color: transparent;
